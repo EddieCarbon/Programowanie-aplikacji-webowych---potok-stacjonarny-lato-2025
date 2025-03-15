@@ -1,8 +1,4 @@
-export interface Project {
-  id: string;
-  name: string;
-  description: string;
-}
+import { Project } from "@/models/project";
 
 export class ProjectService {
   private static readonly STORAGE_KEY = "projects";

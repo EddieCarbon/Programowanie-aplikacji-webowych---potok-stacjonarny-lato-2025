@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Project, ProjectService } from "@/services/projectService";
+import { ProjectService } from "@/services/projectService";
+import { Project } from "@/models/project";
+import { ActiveProjectService } from "@/services/activeProjectService";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -19,6 +21,8 @@ export default function ProjectDetailsPage({
       const foundProject = ProjectService.getProjectById(params.id);
       if (foundProject) {
         setProject(foundProject);
+        // Ustaw ten projekt jako aktywny przy wejściu na jego stronę
+        ActiveProjectService.setActiveProject(foundProject.id);
       }
       setLoading(false);
     };
@@ -29,7 +33,15 @@ export default function ProjectDetailsPage({
   const handleDelete = () => {
     if (window.confirm("Are you sure you want to delete this project?")) {
       ProjectService.deleteProject(params.id);
+      ActiveProjectService.clearActiveProject(); // Wyczyść aktywny projekt po usunięciu
       router.push("/projects");
+    }
+  };
+
+  const handleSetActive = () => {
+    if (project) {
+      ActiveProjectService.setActiveProject(project.id);
+      alert("Project has been set as active");
     }
   };
 
@@ -63,6 +75,22 @@ export default function ProjectDetailsPage({
           <p className="whitespace-pre-line">
             {project.description || "No description provided."}
           </p>
+        </div>
+
+        <div className="flex flex-wrap gap-4 mb-6">
+          <button
+            onClick={handleSetActive}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+          >
+            Set as Active Project
+          </button>
+
+          <Link
+            href={`/projects/${project.id}/stories`}
+            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
+          >
+            View User Stories
+          </Link>
         </div>
 
         <div className="flex gap-4">

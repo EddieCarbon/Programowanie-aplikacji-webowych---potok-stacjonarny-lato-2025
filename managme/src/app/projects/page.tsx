@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Project, ProjectService } from "@/services/projectService";
+import { ProjectService } from "@/services/projectService";
+import { Project } from "@/models/project";
 import Link from "next/link";
 import { generateUniqueId } from "@/utils/idGenerator";
 
@@ -108,7 +109,7 @@ export default function ProjectsPage() {
             >
               <div className="p-4">
                 <h2 className="text-xl font-semibold mb-2">{project.name}</h2>
-                <p className="text-gray-600 dark:text-gray-300 mb-4">
+                <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2">
                   {project.description}
                 </p>
                 <div className="flex justify-end gap-2">
@@ -117,6 +118,12 @@ export default function ProjectsPage() {
                     className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
                   >
                     View
+                  </Link>
+                  <Link
+                    href={`/projects/${project.id}/stories`}
+                    className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm"
+                  >
+                    Stories
                   </Link>
                   <Link
                     href={`/projects/${project.id}/edit`}

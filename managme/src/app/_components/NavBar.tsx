@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import UserProfile from "./UserProfile";
+import ProjectSelector from "./ProjectSelector";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -12,7 +14,7 @@ export default function Navbar() {
         <Link href="/" className="text-xl font-bold">
           ProjectManager
         </Link>
-        <div className="flex gap-6">
+        <div className="flex gap-6 items-center">
           <Link
             href="/"
             className={`hover:text-gray-300 ${pathname === "/" ? "underline" : ""}`}
@@ -25,6 +27,8 @@ export default function Navbar() {
           >
             Projects
           </Link>
+          <ProjectSelector />
+          <UserProfile />
         </div>
       </div>
     </nav>
