@@ -17,8 +17,14 @@ export default function ProjectDetailsPage({
   const router = useRouter();
 
   useEffect(() => {
-    const fetchProject = () => {
-      const foundProject = ProjectService.getProjectById(params.id);
+    const fetchProject = async () => {
+      let resolvedParams;
+      if (params instanceof Promise) {
+        resolvedParams = await params;
+      } else {
+        resolvedParams = params;
+      }
+      const foundProject = ProjectService.getProjectById(resolvedParams.id);
       if (foundProject) {
         setProject(foundProject);
         // Ustaw ten projekt jako aktywny przy wejściu na jego stronę
@@ -28,7 +34,7 @@ export default function ProjectDetailsPage({
     };
 
     fetchProject();
-  }, [params.id]);
+  }, [params]);
 
   const handleDelete = () => {
     if (window.confirm("Are you sure you want to delete this project?")) {

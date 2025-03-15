@@ -17,8 +17,14 @@ export default function StoryDetailsPage({
   const router = useRouter();
 
   useEffect(() => {
-    const fetchStory = () => {
-      const foundStory = StoryService.getStoryById(params.storyId);
+    const fetchStory = async () => {
+      let resolvedParams;
+      if (params instanceof Promise) {
+        resolvedParams = await params;
+      } else {
+        resolvedParams = params;
+      }
+      const foundStory = StoryService.getStoryById(resolvedParams.storyId);
       if (foundStory) {
         setStory(foundStory);
       }
@@ -26,7 +32,7 @@ export default function StoryDetailsPage({
     };
 
     fetchStory();
-  }, [params.storyId]);
+  }, [params]);
 
   const handleDelete = () => {
     if (window.confirm("Are you sure you want to delete this story?")) {

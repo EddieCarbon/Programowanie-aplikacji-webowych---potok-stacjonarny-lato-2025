@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Project, ProjectService } from "@/services/projectService";
+import { ProjectService } from "@/services/projectService";
+import { Project } from "@/models/project";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -15,8 +16,14 @@ export default function EditProjectPage({
   const router = useRouter();
 
   useEffect(() => {
-    const fetchProject = () => {
-      const foundProject = ProjectService.getProjectById(params.id);
+    const fetchProject = async () => {
+      let resolvedParams;
+      if (params instanceof Promise) {
+        resolvedParams = await params;
+      } else {
+        resolvedParams = params;
+      }
+      const foundProject = ProjectService.getProjectById(resolvedParams.id);
       if (foundProject) {
         setProject(foundProject);
       }
@@ -24,7 +31,7 @@ export default function EditProjectPage({
     };
 
     fetchProject();
-  }, [params.id]);
+  }, [params]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

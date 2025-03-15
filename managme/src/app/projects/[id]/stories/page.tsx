@@ -19,8 +19,14 @@ export default function StoriesPage({ params }: { params: { id: string } }) {
   const router = useRouter();
 
   useEffect(() => {
-    const fetchProject = () => {
-      const foundProject = ProjectService.getProjectById(params.id);
+    const fetchProject = async () => {
+      let resolvedParams;
+      if (params instanceof Promise) {
+        resolvedParams = await params;
+      } else {
+        resolvedParams = params;
+      }
+      const foundProject = ProjectService.getProjectById(resolvedParams.id);
       if (foundProject) {
         setProject(foundProject);
         // Ustaw ten projekt jako aktywny
@@ -30,7 +36,7 @@ export default function StoriesPage({ params }: { params: { id: string } }) {
     };
 
     fetchProject();
-  }, [params.id]);
+  }, [params]);
 
   const loadStories = (projectId: string) => {
     setTodoStories(StoryService.getStoriesByStatus(projectId, "todo"));
