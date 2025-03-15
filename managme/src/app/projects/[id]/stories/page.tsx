@@ -2,13 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { StoryService } from "@/services/storyService";
-import { Story, StoryPriority, StoryStatus } from "@/models/story";
+import { Story, StoryStatus } from "@/models/story";
 import { ProjectService } from "@/services/projectService";
 import { Project } from "@/models/project";
 import { ActiveProjectService } from "@/services/activeProjectService";
 import StoryCard from "./_componets/StoryCard";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 export default function StoriesPage({ params }: { params: { id: string } }) {
   const [project, setProject] = useState<Project | null>(null);
@@ -16,7 +15,6 @@ export default function StoriesPage({ params }: { params: { id: string } }) {
   const [doingStories, setDoingStories] = useState<Story[]>([]);
   const [doneStories, setDoneStories] = useState<Story[]>([]);
   const [filter, setFilter] = useState<StoryStatus | "all">("all");
-  const router = useRouter();
 
   useEffect(() => {
     const fetchProject = async () => {
