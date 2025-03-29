@@ -22,4 +22,5 @@ export class UserService {
   static updateCurrentUser(user: User): void {
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(user));
   }
+  // Add user login
 }
