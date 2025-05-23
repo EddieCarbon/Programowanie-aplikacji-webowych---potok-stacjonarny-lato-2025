@@ -1,7 +1,9 @@
 ### Wygląd aplikacji
 - Skorzystaj z dowolnej biblioteki CSS/komponentów (przykładowe biblioteki poniżej) do dopracowania UI aplikacji
+- Poćwicz użycie ai w vscode - wykorzystaj copilota w trybie edit/agenta do implementacji wybranej biblioteki do istniejącego projektu/html-a
 - Zaimplementuj tryb ciemny/jasny (przełącznik na stronie lub zależny od ustawień przeglądarki)
-- Jeśli chcesz możesz zaimplementować prototyp własnej biblioteki.
+- Jeśli chcesz możesz zaimplementować prototyp własnej biblioteki styli/komponentów.
+
 
 #### Przykładowe biblioteki CSS/komponentów:
 - [Bootstrap](https://getbootstrap.com/)
