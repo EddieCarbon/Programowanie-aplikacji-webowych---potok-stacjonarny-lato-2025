@@ -1,24 +1,89 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --background: #ffffff;
+    --foreground: #171717;
+    --card: #ffffff;
+    --card-foreground: #171717;
+    --border: #e5e7eb;
+    --input: #e5e7eb;
+    --ring: #3b82f6;
+    --primary: #3b82f6;
+    --primary-foreground: #ffffff;
+    --secondary: #f3f4f6;
+    --secondary-foreground: #171717;
+    --accent: #f9fafb;
+    --accent-foreground: #171717;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --muted: #f3f4f6;
+    --muted-foreground: #6b7280;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
+.dark {
     --background: #0a0a0a;
     --foreground: #ededed;
-  }
+    --card: #1e1e1e;
+    --card-foreground: #ededed;
+    --border: #2e2e2e;
+    --input: #2e2e2e;
+    --ring: #3b82f6;
+    --primary: #3b82f6;
+    --primary-foreground: #ffffff;
+    --secondary: #1e1e1e;
+    --secondary-foreground: #ededed;
+    --accent: #1e1e1e;
+    --accent-foreground: #ededed;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --muted: #1e1e1e;
+    --muted-foreground: #a1a1aa;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+    color: var(--foreground);
+    background: var(--background);
+    font-family: var(--font-sans);
+}
+
+/* Remove the problematic @layer base section */
+* {
+    border-color: var(--border);
+}
+
+.bg-background {
+    background-color: var(--background);
+}
+
+.text-foreground {
+    color: var(--foreground);
+}
+
+/* Make sure project cards and UI elements look good in both themes */
+.dark .bg-white {
+    background-color: var(--card);
+    color: var(--card-foreground);
+}
+
+.dark .text-gray-600,
+.dark .text-gray-500 {
+    color: var(--muted-foreground);
+}
+
+.dark .border {
+    border-color: var(--border);
+}
+
+/* Adjust form inputs for dark mode */
+.dark input,
+.dark textarea,
+.dark select {
+    background-color: var(--input);
+    border-color: var(--border);
+    color: var(--foreground);
 }

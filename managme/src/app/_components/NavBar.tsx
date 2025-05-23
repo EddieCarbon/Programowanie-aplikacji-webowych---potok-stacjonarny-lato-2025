@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import UserProfile from "./UserProfile";
 import ProjectSelector from "./ProjectSelector";
 import { UserService } from "@/services/userService";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -24,7 +25,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-gray-800 text-white p-4">
+    <nav className="bg-gray-800 dark:bg-gray-900 text-white p-4">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <Link href="/" className="text-xl font-bold">
           ProjectManager
@@ -47,6 +48,7 @@ export default function Navbar() {
               </Link>
               <ProjectSelector />
               <UserProfile />
+              <ThemeToggle />
               <button
                 onClick={handleLogout}
                 className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
@@ -55,12 +57,15 @@ export default function Navbar() {
               </button>
             </>
           ) : (
-            <Link
-              href="/login"
-              className={`hover:text-gray-300 ${pathname === "/login" ? "underline" : ""}`}
-            >
-              Login
-            </Link>
+            <>
+              <Link
+                href="/login"
+                className={`hover:text-gray-300 ${pathname === "/login" ? "underline" : ""}`}
+              >
+                Login
+              </Link>
+              <ThemeToggle />
+            </>
           )}
         </div>
       </div>
