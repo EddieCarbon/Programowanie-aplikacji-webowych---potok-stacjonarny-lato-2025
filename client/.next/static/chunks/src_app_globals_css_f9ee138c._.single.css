@@ -225,6 +225,10 @@
 @layer components;
 
 @layer utilities {
+  .relative {
+    position: relative;
+  }
+
   .row-start-2 {
     grid-row-start: 2;
   }

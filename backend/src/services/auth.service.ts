@@ -77,13 +77,13 @@ class AuthService {
         user = await usersService.getUser(userId!);
       } else {
         // Update existing user with Google data
-        await usersService.patchUser(user._id, {
+        await usersService.patchUser(user._id.toString(), {
           googleId: googleUserData.googleId,
           avatar: googleUserData.avatar,
           lastLogin: new Date(),
           updatedAt: new Date(),
         });
-        user = await usersService.getUser(user._id);
+        user = await usersService.getUser(user._id.toString());
       }
 
       if (!user || !user.isActive) {
