@@ -26,13 +26,7 @@ class AuthController {
   }
 
   async googleLogin(req: Request, res: Response) {
-    const authHeader = req.headers.authorization;
-
-    if (!authHeader) {
-      res.status(400).json({ error: "Google token is required" });
-      return;
-    }
-    const token = authHeader.replace(/^Bearer\s+/i, "");
+    const { token } = req.body;
 
     try {
       const result = await authService.authenticateWithGoogle(token);
