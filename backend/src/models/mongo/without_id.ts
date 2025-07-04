@@ -1,1 +1,0 @@
-export type WithoutId<Model> = Omit<Model, "_id">;
