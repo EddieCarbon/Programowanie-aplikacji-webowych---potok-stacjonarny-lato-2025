@@ -44,30 +44,40 @@ test("Basic use", async ({ page }) => {
 
   await test.step("should add task", async () => {
     await page.goto(`${baseUrl}/tasks`);
-    await page.getByRole("button", { name: "" }).click();
-    await page.getByPlaceholder("Tytuł").fill("");
+    await page.getByRole("button", { name: "Dodaj zadanie" }).click();
+    await page.getByPlaceholder("Nazwa zadania").fill("Zadanie testowe");
+    await page.getByRole("combobox").filter({ hasText: "Historyjka" }).click();
+
+    await page.getByText("Historyjka testowa").click();
     await page.getByRole("button", { name: "Zapisz" }).click();
-    await expect(page.getByText("")).toBeVisible();
+    await expect(page.getByText("Zadanie testowe")).toBeVisible();
   });
 
   await test.step("should change task status", async () => {
-    await page.getByRole("button", { name: "" }).click();
-    await expect(page.getByText("")).toBeVisible();
+    await page.getByText("Zadanie testowe", { exact: true }).click();
+    await page
+      .getByRole("combobox")
+      .filter({ hasText: "Wybierz osobę" })
+      .click();
+    await page.getByText("Jakub Tomiczek").click();
+    await expect(page.getByText("W trakcie")).toBeVisible();
   });
 
   await test.step("should delete task", async () => {
-    await page.getByRole("button", { name: "" }).click();
-    await expect(page.getByText("")).not.toBeVisible();
+    await page.getByRole("button", { name: "Usuń" }).click();
+    await expect(page.getByText("Zadanie testowe")).not.toBeVisible();
   });
 
   await test.step("should delete story", async () => {
-    await page.getByRole("button", { name: "" }).click();
-    await expect(page.getByText("")).not.toBeVisible();
+    await page.goto(`${baseUrl}/stories`);
+    await page.getByRole("button", { name: "Usuń" }).click();
+    await expect(page.getByText("Historyjka testowa")).not.toBeVisible();
   });
 
   await test.step("should delete project", async () => {
-    await page.getByRole("button", { name: "" }).click();
-    await expect(page.getByText("")).not.toBeVisible();
+    await page.goto(`${baseUrl}/projects`);
+    await page.getByRole("button", { name: "Usuń" }).click();
+    await expect(page.getByText("Projekt testowy")).not.toBeVisible();
   });
 
   await test.step("should logout", async () => {
